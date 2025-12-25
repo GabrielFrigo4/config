@@ -1,6 +1,10 @@
 # Emacs Configuration (Modular & Native 30+)
  Configuração moderna e modular para o Emacs, focada em recursos nativos do **Emacs 30+** (Treesit, Eglot, EditorConfig) e organizada em níveis de complexidade.
 
+## ⚠️ Pré-requisitos Visuais
+ Para a experiência completa (Nível Standard/Ultimate), esta configuração espera que você tenha a seguinte fonte instalada no sistema:
+ * **[JetBrainsMono Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases)** (Usada para ícones e ligaduras).
+
 ## 📂 Localização e Caminhos
  Os arquivos `.el` da configuração (`minimal.el`, `standard.el`, `ultimate.el`) devem ser colocados na **pasta de configuração do usuário**:
 
@@ -52,23 +56,28 @@
 ## ✨ Perfis de Configuração
 
 ### `minimal.el` (Rescue Mode)
- * **Foco:** Compatibilidade e velocidade.
+ * **Foco:** Compatibilidade, segurança e velocidade de boot (<0.1s).
  * **Uso:** Terminais simples, servidores remotos, edições rápidas.
- * **Recursos:** Limpeza de UI (sem barras), UTF-8 forçado, comportamento seguro (sem backups `~`).
+ * **Recursos:**
+ * **Startup Otimizado:** Ajuste dinâmico do *Garbage Collector* durante a inicialização.
+ * **Clean UI:** Sem barras, menus ou ruído visual.
+ * **Segurança:** Backups (`~`) e Lockfiles (`.#`) desativados.
 
 ### `standard.el` (Daily Driver)
- * **Foco:** Conforto e recursos nativos do Emacs 30.
+ * **Foco:** Conforto visual e recursos modernos do Emacs 30.
  * **Recursos:**
- * **Which-key Nativo:** Mostra atalhos disponíveis automaticamente.
- * **Fido-mode:** Interface de busca vertical moderna (similar ao Telescope).
- * **Pixel Scroll:** Rolagem suave de alta precisão.
- * **EditorConfig:** Suporte nativo a arquivos `.editorconfig`.
+ * **Visual:** Fonte **JetBrainsMono NF (12pt)** e tema **Wombat** integrados nativamente.
+ * **Navegação:** `Pixel-scroll` (rolagem suave) e `Fido-mode` (busca moderna vertical).
+ * **UX:** `Which-key` (ajuda de atalhos) e Mouse ativado no terminal (`xterm-mouse`).
+ * **EditorConfig:** Suporte nativo ativado.
 
 ### `ultimate.el` (Native IDE)
  * **Foco:** Desenvolvimento de software de alto desempenho.
  * **Recursos:**
  * **Treesit:** Highlight de sintaxe baseado em AST (muito mais rápido que regex).
  * *Dica:* Use `M-x my/install-grammars` na primeira vez para instalar as linguagens.
- * **Eglot:** Cliente LSP nativo (leve e integrado).
- * **Project.el:** Gerenciamento de projetos nativo.
- * **Indentação Híbrida:** Configurada automaticamente (Tabs para Go/Make, Espaços para o resto).
+ * **Eglot:** Cliente LSP nativo configurado para iniciar automaticamente (`clangd`, `pyright`, etc).
+ * **Indentação Inteligente:**
+ * *Hard Tabs (4):* Go, Makefile.
+ * *Soft Tabs (2):* Web (JS/TS/HTML), Lua.
+ * *Soft Tabs (4):* C, Rust, Python.

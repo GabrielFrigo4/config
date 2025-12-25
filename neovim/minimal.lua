@@ -12,7 +12,8 @@ vim.opt.showcmd = true
 -- --- Interface Básica ---
 vim.opt.encoding = "utf-8"
 vim.opt.backspace = { "indent", "eol", "start" }
-vim.opt.history = 100
+vim.opt.whichwrap:append("<,>,[,],h,l")
+vim.opt.history = 256
 vim.opt.backup = false
 vim.opt.swapfile = false
 

@@ -7,7 +7,7 @@ source <sfile>:h/minimal.vim
 
 " --- Visual & Cores ---
 set termguicolors
-colorscheme evening
+colorscheme habamax
 set cursorline
 set nowrap
 

@@ -16,7 +16,8 @@ set showcmd
 " --- Comportamento (Seguro) ---
 set encoding=UTF-8
 set backspace=indent,eol,start
-set history=100
+set whichwrap+=<,>,h,l,[,]
+set history=256
 set nobackup
 set noswapfile
 

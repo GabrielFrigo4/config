@@ -7,7 +7,7 @@ pcall(require, "minimal")
 
 -- --- Visual & Cores ---
 vim.opt.termguicolors = true
-vim.cmd.colorscheme("evening")
+vim.cmd.colorscheme("habamax")
 vim.opt.cursorline = true
 vim.opt.wrap = false
 

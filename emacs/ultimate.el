@@ -47,7 +47,6 @@
 (add-hook 'js-ts-mode-hook 'eglot-ensure)
 
 ;; --- Regras de Indentação (Hooks Específicos) ---
-
 (defun my/indent-2-spaces ()
   (setq-local tab-width 2)
   (setq-local indent-tabs-mode nil))
@@ -75,3 +74,6 @@
 ;; --- Project.el ---
 (require 'project)
 (global-set-key (kbd "C-x p f") 'project-find-file)
+
+;; --- Provide ---
+(provide 'ultimate)

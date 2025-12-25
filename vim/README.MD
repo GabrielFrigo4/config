@@ -34,7 +34,48 @@
 
 ---
 
-## 🚀 Instalação e Uso
+## ⚡ Quick Setup (One-Liners)
+ Se você não quiser clonar o repositório ou precisar configurar um servidor rapidamente, copie e cole um dos blocos abaixo no seu terminal. Eles geram um `.vimrc` funcional instantaneamente.
+
+### Nível 1: Minimal (Rescue)
+ ```bash
+ cat << 'EOF' > "$HOME/.vimrc"
+ syn on|filetype plugin indent on
+ se nocp nu ls=2 sc enc=utf-8 bs=2 ww+=<,>,h,l,[,] hi=256 nobk noswf hls is ai si
+ EOF
+ ```
+
+### Nível 2: Standard (Daily Driver)
+ ```bash
+ cat << 'EOF' > "$HOME/.vimrc"
+ syn on|filetype plugin indent on
+ se nocp nu rnu ls=2 sc enc=utf-8 bs=2 ww+=<,>,h,l,[,] hi=256 nobk noswf hls is ai si
+ se tgc cul nowrap mouse=a mousemodel=popup ts=4 sts=4 sw=4 et
+ try|se cb^=unnamed,unnamedplus|colo habamax|catch|endtry
+ let &t_SI="\<Esc>[5 q"|let &t_SR="\<Esc>[3 q"|let &t_EI="\<Esc>[1 q"
+ EOF
+ ```
+
+### Nível 3: Ultimate (Pro IDE)
+ ```bash
+ cat << 'EOF' > "$HOME/.vimrc"
+ syn on|filetype plugin indent on
+ se nocp nu rnu ls=2 sc enc=utf-8 bs=2 ww+=<,>,h,l,[,] hi=256 nobk noswf hls is ai si
+ se tgc cul nowrap mouse=a mousemodel=popup ts=4 sts=4 sw=4 et
+ se wmnu wim=longest:full,full so=8 scl=yes sb spr ic scs
+ try|se cb^=unnamed,unnamedplus|colo habamax|catch|endtry
+ au FileType javascript,typescript,javascriptreact,typescriptreact,lua,html,css,json,yaml setl ts=2 sw=2 sts=2 et
+ au FileType python,org,go,asm,nasm,masm,fasm setl ts=4 sw=4 sts=4 noet
+ au FileType c,cpp,rust,cs,java,zig,arduino setl ts=4 sw=4 sts=4 et
+ let mapleader="\<Space>"|nn <space> <nop>|nn <leader>w :w<cr>|nn <leader>q :q<cr>
+ nn <expr> <BS> col('.')==1?'kgJ':'X'
+ let &t_SI="\<Esc>[5 q"|let &t_SR="\<Esc>[3 q"|let &t_EI="\<Esc>[1 q"
+ EOF
+ ```
+
+---
+
+## 🚀 Instalação e Uso (Arquivos)
 
 ### Opção A: Carregamento Manual (Recomendado)
  No seu arquivo `~/.vimrc` principal, carregue apenas o nível que deseja utilizar no momento.
@@ -46,7 +87,6 @@
  ```
 
  Para usar a versão leve em um servidor:
-
  ```vim
  " ~/.vimrc
  source ~/vimfiles/vimrc/minimal.vim
