@@ -1,0 +1,58 @@
+# =============================================================================
+# ULTIMATE SETUP (ultimate.toml) - Foco: Vim-Like Power User
+# =============================================================================
+
+# --- Core ---
+theme = "dark_plus"
+
+[editor]
+line-number = "relative"
+cursorline = true
+cursorcolumn = true
+true-color = true
+mouse = true
+bufferline = "multiple"
+rulers = [80, 120]
+
+# --- Visual ---
+[editor.indent-guides]
+render = true
+character = "▏"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+# --- LSP & Status ---
+[editor.lsp]
+display-messages = true
+auto-signature-help = true
+enable = true
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+center = ["diagnostics"]
+right = ["selections", "position", "file-encoding", "file-line-ending", "file-type"]
+
+# --- Mappings ---
+[keys.normal]
+"C-u" = ["half_page_up", "center_selection"]
+"C-d" = ["half_page_down", "center_selection"]
+del = "delete_char_forward"
+backspace = "delete_char_backward"
+esc = ["collapse_selection", "keep_primary_selection"]
+
+[keys.normal.space]
+w = ":w"
+q = ":q"
+x = ":wq"
+c = ":buffer-close"
+
+[keys.select]
+del = "delete_selection"
+backspace = "delete_selection"
+esc = ["collapse_selection", "normal_mode"]

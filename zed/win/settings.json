@@ -1,4 +1,4 @@
-// Zed settings - Unix Profile (Native/Modern Style)
+// Zed settings - Windows Profile (Native/Modern Style)
 {
   // ==========================================================================
   //  CORE & UI (A Experiência Zed Pura)
@@ -23,15 +23,14 @@
     "dock": "left"
   },
   "scrollbar": {
-    "show": "always",
-    "cursor_width": 5
+    "show": "always"
   },
   "telemetry": {
     "metrics": false
   },
 
   // ==========================================================================
-  //  LINGUAGENS (Apenas o estritamente necessário)
+  //  LINGUAGENS
   // ==========================================================================
   "languages": {
     "Go": { "hard_tabs": true, "tab_size": 4 },
@@ -39,24 +38,24 @@
   },
 
   // ==========================================================================
-  //  TERMINAL & SHELL
+  //  TERMINAL
   // ==========================================================================
   "terminal": {
     "font_family": "JetBrainsMono Nerd Font Mono",
     "line_height": "standard",
     "blinking": "terminal_controlled",
     "shell": {
-      "program": "/usr/bin/zsh"
+      "program": "C:\\Program Files\\PowerShell\\7\\pwsh.exe"
     }
   },
 
   // ==========================================================================
-  //  LSP & TOOLS (Seus caminhos mantidos)
+  //  LSP & TOOLS
   // ==========================================================================
   "lsp": {
     "clangd": {
       "binary": {
-        "path": "/usr/bin/clangd",
+        "path": "C:\\msys64\\clang64\\bin\\clangd.exe",
         "arguments": [
           "--background-index",
           "--compile-commands-dir=build",
@@ -73,7 +72,7 @@
     "pyright": {
       "settings": {
         "python": {
-          "pythonPath": "/usr/bin/python3"
+          "pythonPath": "C:\\Users\\gabri\\AppData\\Local\\Programs\\Python\\Python314\\python.exe"
         }
       }
     }

@@ -1,0 +1,35 @@
+# =============================================================================
+# STANDARD SETUP (standard.toml) - Foco: Edição Confortável
+# =============================================================================
+
+# --- Core ---
+theme = "dark_plus"
+
+[editor]
+line-number = "relative"
+cursorline = true
+cursorcolumn = true
+true-color = true
+mouse = true
+bufferline = "always"
+
+# --- Visual ---
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+# --- Mappings ---
+[keys.normal]
+del = "delete_char_forward"
+backspace = "delete_char_backward"
+"C-a" = "goto_line_start"
+"C-e" = "goto_line_end"
+esc = ["collapse_selection", "keep_primary_selection"]
+
+[keys.select]
+del = "delete_selection"
+backspace = "delete_selection"

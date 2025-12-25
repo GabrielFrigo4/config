@@ -1,0 +1,17 @@
+# =============================================================================
+# MINIMAL SETUP (minimal.toml) - Foco: Compatibilidade TTY/SSH
+# =============================================================================
+
+# --- Core ---
+theme = "dark_plus"
+
+[editor]
+line-number = "relative"
+mouse = false
+scrolloff = 0
+idle-timeout = 0
+
+# --- Mappings ---
+[keys.normal]
+del = "delete_char_forward"
+backspace = "delete_char_backward"
