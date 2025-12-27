@@ -1,10 +1,10 @@
 ;;; minimal.el --- Emacs 30 Minimal Setup (Rescue Mode) -*- lexical-binding: t; -*-
 
-;; --- Otimização de Startup (GC Inteligente, 128MB) ---
+;; --- Otimização de Startup (GC Inteligente, 256MB <=> (2^8 * 2^20)) ---
 (defvar file-name-handler-alist-original file-name-handler-alist)
 (defvar gc-cons-threshold-original gc-cons-threshold)
 
-(setq gc-cons-threshold 134217728
+(setq gc-cons-threshold (expt 2 28))
       file-name-handler-alist nil)
 
 (add-hook 'after-init-hook
