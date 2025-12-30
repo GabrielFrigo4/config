@@ -25,7 +25,7 @@
 (setq vc-follow-symlinks t)
 
 ;; --- Visual Básico ---
-(load-theme 'misterioso t)
+(load-theme 'wombat t)
 (global-display-line-numbers-mode t)
 (setq display-line-numbers-type 'relative)
 
