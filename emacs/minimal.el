@@ -4,7 +4,7 @@
 (defvar file-name-handler-alist-original file-name-handler-alist)
 (defvar gc-cons-threshold-original gc-cons-threshold)
 
-(setq gc-cons-threshold (expt 2 28))
+(setq gc-cons-threshold most-positive-fixnum)
       file-name-handler-alist nil)
 
 (add-hook 'after-init-hook
