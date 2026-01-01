@@ -11,6 +11,9 @@
 ;; --- Visual & Tema ---
 (mapc #'disable-theme custom-enabled-themes)
 (load-theme 'wombat t)
+(setq font-lock-maximum-decoration t)
+(add-to-list 'default-frame-alist '(width . 87))
+(add-to-list 'default-frame-alist '(height . 29))
 
 ;; --- Configuração de Fontes (Daemon Safe) ---
 (defun my/configure-faces ()
@@ -28,6 +31,9 @@
 (pixel-scroll-precision-mode 1)
 (touch-screen-mode 1)
 (editorconfig-mode 1)
+
+;; --- Estilo de Edição (Coding) ---
+(setq c-default-style "user")
 
 ;; --- UX & Interface ---
 (setq icomplete-show-matches-on-no-input t)

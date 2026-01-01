@@ -78,6 +78,10 @@
 
   ;; --- Standard: Visual ---
   '(custom-enabled-themes '(wombat))
+  '(c-default-style "user")
+  '(default-frame-alist '((width . 87) (height . 29)))
+  '(font-lock-maximum-decoration t)
+  '(column-number-mode t)
  
   ;; --- Standard: UX & Navegação ---
   '(fido-vertical-mode t)
@@ -99,9 +103,9 @@
   '(dired-kill-when-opening-new-dired-buffer t))
 
  (custom-set-faces
-  '(default ((t (:family "JetBrainsMono NF" :height 120))))
+  '(default ((t (:family "JetBrainsMono NF" :foundry "outline" :slant normal :weight regular :height 120 :width normal))))
   '(variable-pitch ((t (:family "Sans Serif" :height 120)))))
-EOF
+ EOF
  ```
 
 ### Nível 3: Ultimate (Native IDE)
@@ -110,7 +114,7 @@ EOF
  *Nota:* Como este formato não suporta `hooks` complexos, o Eglot deve ser iniciado manualmente com `M-x eglot` quando necessário.
 
  ```bash
-cat << 'EOF' > "$HOME/.emacs"
+ cat << 'EOF' > "$HOME/.emacs"
  (custom-set-variables
   ;; --- Core & Minimal ---
   '(current-language-environment "UTF-8")
@@ -128,6 +132,10 @@ cat << 'EOF' > "$HOME/.emacs"
 
   ;; --- Standard: Visual & UX ---
   '(custom-enabled-themes '(wombat))
+  '(c-default-style "user")
+  '(default-frame-alist '((width . 87) (height . 29)))
+  '(font-lock-maximum-decoration t)
+  '(column-number-mode t)
   '(fido-vertical-mode t)
   '(which-key-mode t)
   '(pixel-scroll-precision-mode t)
@@ -147,7 +155,6 @@ cat << 'EOF' > "$HOME/.emacs"
   ;; --- Ultimate: IDE (Eglot & Treesit) ---
   '(eglot-autoshutdown t)
   '(treesit-font-lock-level 4)
-  ;; Mapeia modos legados para Treesitter (Assume gramáticas instaladas)
   '(major-mode-remap-alist
     '((c-mode . c-ts-mode)
       (python-mode . python-ts-mode)
@@ -160,7 +167,7 @@ cat << 'EOF' > "$HOME/.emacs"
       (yaml-mode . yaml-ts-mode))))
 
  (custom-set-faces
-  '(default ((t (:family "JetBrainsMono NF" :height 120))))
+  '(default ((t (:family "JetBrainsMono NF" :foundry "outline" :slant normal :weight regular :height 120 :width normal))))
   '(variable-pitch ((t (:family "Sans Serif" :height 120)))))
  EOF
  ```
