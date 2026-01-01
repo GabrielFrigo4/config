@@ -23,6 +23,150 @@
 
 ---
 
+## ⚡ Quick Setup (One-Liners)
+ Se você precisar configurar um servidor rapidamente ou testar o setup sem clonar o repositório, use estes comandos. Eles geram um `.emacs` funcional usando apenas o sistema de customização nativo.
+
+### Nível 1: Minimal (Rescue)
+ Focado em UTF-8, velocidade e limpeza visual.
+
+ ```bash
+ cat << 'EOF' > "$HOME/.emacs"
+ (custom-set-variables
+  ;; --- Core & Encoding ---
+  '(current-language-environment "UTF-8")
+  '(inhibit-startup-screen t)
+  '(initial-scratch-message nil)
+  '(ring-bell-function 'ignore)
+ 
+  ;; --- UI Limpa ---
+  '(menu-bar-mode nil)
+  '(tool-bar-mode nil)
+  '(scroll-bar-mode nil)
+  '(use-short-answers t)
+  '(global-display-line-numbers-mode t)
+  '(display-line-numbers-type 'relative)
+ 
+  ;; --- Segurança & Arquivos ---
+  '(make-backup-files nil)
+  '(create-lockfiles nil)
+ 
+  ;; --- Indentação (Spaces > Tabs) ---
+  '(indent-tabs-mode nil)
+  '(tab-width 4))
+ EOF
+ ```
+
+### Nível 2: Standard (Daily Driver)
+ Adiciona tema Wombat, fontes, melhorias de UX (Fido, Dired, Which-key) e persistência de histórico.
+
+ ```bash
+ cat << 'EOF' > "$HOME/.emacs"
+ (custom-set-variables
+  ;; --- Core & Minimal ---
+  '(current-language-environment "UTF-8")
+  '(inhibit-startup-screen t)
+  '(menu-bar-mode nil)
+  '(tool-bar-mode nil)
+  '(scroll-bar-mode nil)
+  '(use-short-answers t)
+  '(global-display-line-numbers-mode t)
+  '(display-line-numbers-type 'relative)
+  '(make-backup-files nil)
+  '(create-lockfiles nil)
+  '(indent-tabs-mode nil)
+  '(tab-width 4)
+
+  ;; --- Standard: Visual ---
+  '(custom-enabled-themes '(wombat))
+ 
+  ;; --- Standard: UX & Navegação ---
+  '(fido-vertical-mode t)
+  '(which-key-mode t)
+  '(pixel-scroll-precision-mode t)
+  '(context-menu-mode t)
+  '(winner-mode t)
+  '(electric-pair-mode t)
+  '(xterm-mouse-mode t)
+ 
+  ;; --- Standard: Histórico ---
+  '(savehist-mode t)
+  '(recentf-mode t)
+  '(save-place-mode t)
+ 
+  ;; --- Standard: Dired ---
+  '(dired-listing-switches "-agho --group-directories-first")
+  '(dired-dwim-target t)
+  '(dired-kill-when-opening-new-dired-buffer t))
+
+ (custom-set-faces
+  '(default ((t (:family "JetBrainsMono NF" :height 120))))
+  '(variable-pitch ((t (:family "Sans Serif" :height 120)))))
+EOF
+ ```
+
+### Nível 3: Ultimate (Native IDE)
+ Inclui tudo do Standard e ativa o mapeamento do **Treesitter** e configurações do **Eglot**.
+ 
+ *Nota:* Como este formato não suporta `hooks` complexos, o Eglot deve ser iniciado manualmente com `M-x eglot` quando necessário.
+
+ ```bash
+cat << 'EOF' > "$HOME/.emacs"
+ (custom-set-variables
+  ;; --- Core & Minimal ---
+  '(current-language-environment "UTF-8")
+  '(inhibit-startup-screen t)
+  '(menu-bar-mode nil)
+  '(tool-bar-mode nil)
+  '(scroll-bar-mode nil)
+  '(use-short-answers t)
+  '(global-display-line-numbers-mode t)
+  '(display-line-numbers-type 'relative)
+  '(make-backup-files nil)
+  '(create-lockfiles nil)
+  '(indent-tabs-mode nil)
+  '(tab-width 4)
+
+  ;; --- Standard: Visual & UX ---
+  '(custom-enabled-themes '(wombat))
+  '(fido-vertical-mode t)
+  '(which-key-mode t)
+  '(pixel-scroll-precision-mode t)
+  '(context-menu-mode t)
+  '(winner-mode t)
+  '(electric-pair-mode t)
+  '(xterm-mouse-mode t)
+  '(savehist-mode t)
+  '(recentf-mode t)
+  '(save-place-mode t)
+ 
+  ;; --- Standard: Dired ---
+  '(dired-listing-switches "-agho --group-directories-first")
+  '(dired-dwim-target t)
+  '(dired-kill-when-opening-new-dired-buffer t)
+
+  ;; --- Ultimate: IDE (Eglot & Treesit) ---
+  '(eglot-autoshutdown t)
+  '(treesit-font-lock-level 4)
+  ;; Mapeia modos legados para Treesitter (Assume gramáticas instaladas)
+  '(major-mode-remap-alist
+    '((c-mode . c-ts-mode)
+      (python-mode . python-ts-mode)
+      (js-mode . js-ts-mode)
+      (typescript-mode . typescript-ts-mode)
+      (json-mode . json-ts-mode)
+      (go-mode . go-ts-mode)
+      (rust-mode . rust-ts-mode)
+      (sh-mode . bash-ts-mode)
+      (yaml-mode . yaml-ts-mode))))
+
+ (custom-set-faces
+  '(default ((t (:family "JetBrainsMono NF" :height 120))))
+  '(variable-pitch ((t (:family "Sans Serif" :height 120)))))
+ EOF
+ ```
+
+---
+
 ## 🚀 Instalação e Uso
  Esta configuração usa um sistema de **cascata**. Você só precisa carregar o nível mais alto que deseja usar no seu `init.el`, e ele carregará os níveis inferiores automaticamente.
 
@@ -61,7 +205,7 @@
  * **Recursos:**
  * **Startup Otimizado:** Ajuste dinâmico do *Garbage Collector* durante a inicialização.
  * **Clean UI:** Sem barras, menus ou ruído visual.
- * **Segurança:** Backups (`~`) e Lockfiles (`.#`) desativados.
+ * **Segurança:** Backups (`~`) desativados e Lockfiles (`.#`) movidos para diretório temporário.
 
 ### `standard.el` (Daily Driver)
  * **Foco:** Conforto visual e recursos modernos do Emacs 30.
