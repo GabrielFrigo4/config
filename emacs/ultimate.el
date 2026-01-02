@@ -3,7 +3,7 @@
 ;; --- Herança: Carrega o Standard ---
 (load (expand-file-name "standard" user-emacs-directory))
 
-;; --- Treesitter (Highlight Sintático Moderno) ---
+;; --- Treesitter ---
 (require 'treesit)
 (setq treesit-font-lock-level 4)
 
@@ -32,19 +32,22 @@
         (json "https://github.com/tree-sitter/tree-sitter-json")
         (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
-(defun my/install-grammars ()
-  "Instala gramáticas listadas se ainda não estiverem presentes."
+(defun install-grammars ()
+  "Instala gramáticas do Treesitter listadas."
   (interactive)
   (dolist (grammar treesit-language-source-alist)
     (let ((lang (car grammar)))
-      (unless (treesit-language-available-p lang)
+      (if (treesit-language-available-p lang)
+          (message "Gramática já instalada: %s" lang)
         (message "Instalando gramática: %s..." lang)
-        (treesit-install-language-grammar lang)))))
+        (condition-case err
+            (treesit-install-language-grammar lang)
+          (error (message "Erro ao instalar %s: %s" lang err)))))))
 
-;; --- LSP (Eglot Nativo) ---
+;; --- LSP (Eglot) ---
 (require 'eglot)
 (setq eglot-autoshutdown t)
-(setq eglot-stay-out-of '(font-lock)) 
+(setq eglot-stay-out-of '(font-lock))
 
 (add-hook 'c-ts-mode-hook 'eglot-ensure)
 (add-hook 'rust-ts-mode-hook 'eglot-ensure)
@@ -53,36 +56,41 @@
 (add-hook 'js-ts-mode-hook 'eglot-ensure)
 (add-hook 'typescript-ts-mode-hook 'eglot-ensure)
 
-;; --- Regras de Indentação por Linguagem ---
+;; --- Autocomplete ---
+(setq tab-always-indent 'complete)
+(setq completion-cycle-threshold 3)
 
-(defun my/indent-2-spaces ()
+;; --- Indentação por Linguagem ---
+(defun ultimate/indent-2-spaces ()
   (setq-local tab-width 2)
   (setq-local indent-tabs-mode nil))
 
-(add-hook 'js-ts-mode-hook #'my/indent-2-spaces)
-(add-hook 'typescript-ts-mode-hook #'my/indent-2-spaces)
-(add-hook 'html-mode-hook #'my/indent-2-spaces)
-(add-hook 'lua-mode-hook #'my/indent-2-spaces)
-(add-hook 'json-ts-mode-hook #'my/indent-2-spaces)
+(add-hook 'js-ts-mode-hook #'ultimate/indent-2-spaces)
+(add-hook 'typescript-ts-mode-hook #'ultimate/indent-2-spaces)
+(add-hook 'html-mode-hook #'ultimate/indent-2-spaces)
+(add-hook 'lua-mode-hook #'ultimate/indent-2-spaces)
+(add-hook 'json-ts-mode-hook #'ultimate/indent-2-spaces)
 
-(defun my/indent-4-spaces ()
+(defun ultimate/indent-4-spaces ()
   (setq-local tab-width 4)
   (setq-local indent-tabs-mode nil))
 
-(add-hook 'python-ts-mode-hook #'my/indent-4-spaces)
-(add-hook 'c-ts-mode-hook #'my/indent-4-spaces)
-(add-hook 'rust-ts-mode-hook #'my/indent-4-spaces)
+(add-hook 'python-ts-mode-hook #'ultimate/indent-4-spaces)
+(add-hook 'c-ts-mode-hook #'ultimate/indent-4-spaces)
+(add-hook 'rust-ts-mode-hook #'ultimate/indent-4-spaces)
 
-(defun my/indent-hard-tabs ()
+(defun ultimate/indent-hard-tabs ()
   (setq-local tab-width 4)
   (setq-local indent-tabs-mode t))
 
-(add-hook 'go-ts-mode-hook #'my/indent-hard-tabs)
-(add-hook 'makefile-mode-hook #'my/indent-hard-tabs)
+(add-hook 'go-ts-mode-hook #'ultimate/indent-hard-tabs)
+(add-hook 'makefile-mode-hook #'ultimate/indent-hard-tabs)
 
-;; --- Project Management ---
+;; --- Projetos ---
 (require 'project)
 (global-set-key (kbd "C-x p f") 'project-find-file)
+(global-set-key (kbd "C-x p p") 'project-switch-project)
+(global-set-key (kbd "C-x p k") 'project-kill-buffers)
 
 ;; --- Provide ---
 (provide 'ultimate)
