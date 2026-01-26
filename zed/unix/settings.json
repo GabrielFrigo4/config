@@ -29,7 +29,6 @@
     },
     "scrollbar": {
         "show": "always",
-        "cursor_width": 5
     },
     "telemetry": {
         "metrics": false
@@ -73,13 +72,6 @@
         "rust-analyzer": {
             "initialization_options": {
                 "checkOnSave": { "command": "check" }
-            }
-        },
-        "pyright": {
-            "settings": {
-                "python": {
-                    "pythonPath": "/usr/bin/python3"
-                }
             }
         }
     }
