@@ -30,7 +30,7 @@
  Focado em UTF-8, velocidade e limpeza visual. Inclui numeração de linhas para edição moderna.
 
  ```bash
- cat << 'EOF' > "$HOME/.emacs"
+ cat << 'EOF' | tee "$HOME/.emacs" > "/dev/null"
  (custom-set-variables
   ;; --- Core & Encoding ---
   '(current-language-environment "UTF-8")
@@ -55,7 +55,7 @@
  Adiciona tema Wombat, fontes, melhorias de UX (Fido, Dired, Which-key, EditorConfig) e persistência de histórico.
 
  ```bash
- cat << 'EOF' > "$HOME/.emacs"
+ cat << 'EOF' | tee "$HOME/.emacs" > "/dev/null"
  (custom-set-variables
   ;; --- Core & Encoding ---
   '(current-language-environment "UTF-8")
@@ -118,7 +118,7 @@ Inclui tudo do Standard e ativa o mapeamento do **Treesitter** e configurações
 *Nota:* Esta versão "One-Liner" configura o mapeamento. Para as cores funcionarem, você precisará instalar as gramáticas manualmente com `M-x treesit-install-language-grammar`.
 
  ```bash
- cat << 'EOF' > "$HOME/.emacs"
+ cat << 'EOF' | tee "$HOME/.emacs" > "/dev/null"
  (require 'treesit)
  (require 'eglot)
  (require 'project)

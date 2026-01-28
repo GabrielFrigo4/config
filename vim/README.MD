@@ -39,7 +39,7 @@
 
 ### Nível 1: Minimal (Rescue)
  ```bash
- cat << 'EOF' > "$HOME/.vimrc"
+ cat << 'EOF' | tee "$HOME/.vimrc" > "/dev/null"
  syn on|filetype plugin indent on
  se nocp nu ls=2 sc enc=utf-8 bs=2 ww+=<,>,h,l,[,] hi=256 nobk noswf hls is ai si
  EOF
@@ -47,7 +47,7 @@
 
 ### Nível 2: Standard (Daily Driver)
  ```bash
- cat << 'EOF' > "$HOME/.vimrc"
+ cat << 'EOF' | tee "$HOME/.vimrc" > "/dev/null"
  syn on|filetype plugin indent on
  se nocp nu rnu ls=2 sc enc=utf-8 bs=2 ww+=<,>,h,l,[,] hi=256 nobk noswf hls is ai si
  se tgc cul nowrap mouse=a mousemodel=popup ts=4 sts=4 sw=4 et
@@ -58,7 +58,7 @@
 
 ### Nível 3: Ultimate (Pro IDE)
  ```bash
- cat << 'EOF' > "$HOME/.vimrc"
+ cat << 'EOF' | tee "$HOME/.vimrc" > "/dev/null"
  syn on|filetype plugin indent on
  se nocp nu rnu ls=2 sc enc=utf-8 bs=2 ww+=<,>,h,l,[,] hi=256 nobk noswf hls is ai si
  se tgc cul nowrap mouse=a mousemodel=popup ts=4 sts=4 sw=4 et
