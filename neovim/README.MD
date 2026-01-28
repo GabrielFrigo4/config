@@ -91,3 +91,100 @@
  1. **Performance:** Acesso direto à API C do Neovim via `vim.opt` e `vim.api`, sem tradução de Vimscript.
  2. **Estabilidade:** Uso de `pcall` (protected call) para carregar módulos, evitando quebras se um arquivo estiver faltando.
  3. **Modernidade:** Substituição de hacks de terminal (`t_SI`) por configurações nativas (`guicursor`).
+
+---
+
+## 📚 Referências e Documentação
+
+### 📘 Neovim Lua (Para a sua Config Manual)
+ * **[Nvim Lua Guide (Nanotee)](https://github.com/nanotee/nvim-lua-guide)** - **A Bíblia.** O guia definitivo para migrar de Vimscript para Lua. Explica `vim.opt`, `vim.api`, `vim.keymap` em detalhes.
+ * **[Lua 5.1 Manual (Quick Reference)](https://www.lua.org/manual/5.1/)** - O manual da versão exata que o Neovim usa (LuaJIT é 5.1 compatível).
+ * **[Learn Lua in Y Minutes](https://learnxinyminutes.com/docs/lua/)** - Sintaxe rápida da linguagem para quem já sabe programar.
+
+### ⚡ LazyVim (Para o Script de Instalação)
+ * **[LazyVim Docs](https://www.lazyvim.org/)** - Documentação oficial.
+ * **[LazyVim Keymaps](https://www.lazyvim.org/keymaps)** - Lista de atalhos padrão (a "barra de espaço" como líder, janelas, buffers).
+ * **[LazyVim Plugins](https://www.lazyvim.org/plugins)** - Explica como ativar/desativar plugins extras (ex: TypeScript, Python) sem quebrar o core.
+
+### 🛠️ Ecossistema & Internals
+ * **[Mason.nvim](https://github.com/williamboman/mason.nvim)** - Entenda como o Neovim gerencia binários externos (LSP, Linters). *Nota: É por causa dele que você precisa de Node.js/NPM instalados.*
+ * **[Nvim-Treesitter](https://github.com/nvim-treesitter/nvim-treesitter)** - Documentação do motor de syntax highlighting moderno.
+ * **[Nerd Fonts](https://www.nerdfonts.com/cheat-sheet)** - Buscador de ícones (útil para customizar a statusline ou ícones de arquivos).
+
+### 🎓 Vim "Hard Mode" (Conceitos Core)
+ * **[Vim Galore](https://github.com/mhinz/vim-galore)** - Uma enciclopédia de dicas avançadas do Vim que funcionam no Neovim.
+ * **[Vim Text Objects](https://www.google.com/search?q=https://blog.carbonfive.com/vim-text-objects-the-definitive-guide/)** - Para entender o poder de editar com `ciw`, `di(`, `vat`, etc.
+ * **[Vim Casts](http://vimcasts.org/)** - Vídeos curtos ensinando conceitos fundamentais de edição modal.
+
+---
+
+## Instalar as Dependências no Ubuntu/Debian
+ ```bash
+ sudo apt install --yes nvim
+ sudo apt install --yes xsel
+ sudo apt install --yes xclip
+ sudo apt install --yes wl-clipboard
+ sudo apt install --yes libtree-sitter0
+ sudo apt install --yes libtree-sitter-dev
+ sudo apt install --yes build-essential
+ sudo apt install --yes repgrep
+ sudo apt install --yes ripgrep
+ sudo apt install --yes fd-find
+ sudo apt install --yes git
+
+ sudo apt install --yes nodejs
+ sudo apt install --yes npm
+ sudo ln -s "$(which fdfind)" "/usr/local/bin/fd" 2> "/dev/null"
+ ```
+
+## Instalar as Dependências no Manjaro/Arch
+ ```bash
+ sudo pacman --needed --noconfirm -S nvim
+ sudo pacman --needed --noconfirm -S xsel
+ sudo pacman --needed --noconfirm -S xclip
+ sudo pacman --needed --noconfirm -S wl-clipboard
+ sudo pacman --needed --noconfirm -S tree-sitter
+ sudo pacman --needed --noconfirm -S base-devel
+ sudo pacman --needed --noconfirm -S repgrep
+ sudo pacman --needed --noconfirm -S ripgrep
+ sudo pacman --needed --noconfirm -S fd
+ sudo pacman --needed --noconfirm -S git
+
+ sudo pacman --needed --noconfirm -S nodejs
+ sudo pacman --needed --noconfirm -S npm
+ ```
+
+## Instalação Rápida do LazyVim com Configuração Básica
+ ```bash
+ # Remove Lixo
+ rm -rf "$HOME/.config/nvim" 2> "/dev/null"
+
+ # Setup LazyVim
+ git clone "https://github.com/LazyVim/starter" "$HOME/.config/nvim"
+ rm -rf "$HOME/.config/nvim/.git"
+
+ # Setup Nerd Icons
+ wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip" -O "NerdFontsSymbolsOnly.zip"
+ unzip -o "NerdFontsSymbolsOnly.zip" -d "$HOME/.local/share/fonts"
+ rm -f "$HOME/.local/share/fonts/10-nerd-font-symbols.conf"
+ rm -f "$HOME/.local/share/fonts/LICENSE"
+ rm -f "$HOME/.local/share/fonts/README.md"
+ rm "NerdFontsSymbolsOnly.zip"
+
+ # Setup options.lua
+ cat << 'EOF' | tee -a "$HOME/.config/nvim/lua/config/options.lua" > "/dev/null"
+ -- Ativar Cursor Piscante
+ local cursor_gui = vim.api.nvim_get_option_value("guicursor", {})
+ local cursor_group = vim.api.nvim_create_augroup('ConfigCursor', { clear = true })
+ vim.api.nvim_create_autocmd({ 'VimEnter', 'VimResume' }, {
+ 	group = cursor_group,
+ 	pattern = '*',
+ 	command = 'set guicursor=' .. cursor_gui .. ',a:blinkwait500-blinkoff500-blinkon500-Cursor/lCursor'
+ })
+ vim.api.nvim_create_autocmd({ 'VimLeave', 'VimSuspend' }, {
+ 	group = cursor_group,
+ 	pattern = '*',
+ 	command = 'set guicursor='
+ })
+ EOF
+ ```

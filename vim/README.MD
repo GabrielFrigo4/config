@@ -106,3 +106,72 @@
 ## 📍 Caminhos
  * **Repositório:** `~/vimfiles/vimrc`
  * **Vimrc do Usuário:** `~/.vimrc`
+
+---
+
+## 📚 Referências
+ * [Vim Documentation](https://vimhelp.org/)
+ * [Vim Tips Wiki](http://vim.wikia.com/wiki/Vim_Tips_Wiki)
+ * [Vimcasts](http://vimcasts.org/)
+
+---
+
+## Instalar as Dependências no Ubuntu/Debian
+ ```bash
+ sudo apt install --yes vim
+ sudo apt install --yes xsel
+ sudo apt install --yes xclip
+ sudo apt install --yes wl-clipboard
+ sudo apt install --yes repgrep
+ sudo apt install --yes ripgrep
+ sudo apt install --yes fd-find
+ sudo apt install --yes git
+ sudo ln -s "$(which fdfind)" "/usr/local/bin/fd" 2> "/dev/null"
+ ```
+
+## Instalar as Dependências no Manjaro/Arch
+ ```bash
+ sudo pacman --needed --noconfirm -S vim
+ sudo pacman --needed --noconfirm -S xsel
+ sudo pacman --needed --noconfirm -S xclip
+ sudo pacman --needed --noconfirm -S wl-clipboard
+ sudo pacman --needed --noconfirm -S repgrep
+ sudo pacman --needed --noconfirm -S ripgrep
+ sudo pacman --needed --noconfirm -S fd
+ sudo pacman --needed --noconfirm -S git
+ ```
+
+## Instalação Rápida do LazyVim com Configuração Básica
+ ```bash
+ # Remove Lixo
+ rm -rf "$HOME/.config/nvim" 2> "/dev/null"
+
+ # Setup LazyVim
+ git clone "https://github.com/LazyVim/starter" "$HOME/.config/nvim"
+ rm -rf "$HOME/.config/nvim/.git"
+
+ # Setup Nerd Icons
+ wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip" -O "NerdFontsSymbolsOnly.zip"
+ unzip -o "NerdFontsSymbolsOnly.zip" -d "$HOME/.local/share/fonts"
+ rm -f "$HOME/.local/share/fonts/10-nerd-font-symbols.conf"
+ rm -f "$HOME/.local/share/fonts/LICENSE"
+ rm -f "$HOME/.local/share/fonts/README.md"
+ rm "NerdFontsSymbolsOnly.zip"
+
+ # Setup options.lua
+ cat << 'EOF' | tee -a "$HOME/.config/nvim/lua/config/options.lua" > "/dev/null"
+ -- Ativar Cursor Piscante
+ local cursor_gui = vim.api.nvim_get_option_value("guicursor", {})
+ local cursor_group = vim.api.nvim_create_augroup('ConfigCursor', { clear = true })
+ vim.api.nvim_create_autocmd({ 'VimEnter', 'VimResume' }, {
+ 	group = cursor_group,
+ 	pattern = '*',
+ 	command = 'set guicursor=' .. cursor_gui .. ',a:blinkwait500-blinkoff500-blinkon500-Cursor/lCursor'
+ })
+ vim.api.nvim_create_autocmd({ 'VimLeave', 'VimSuspend' }, {
+ 	group = cursor_group,
+ 	pattern = '*',
+ 	command = 'set guicursor='
+ })
+ EOF
+ ```

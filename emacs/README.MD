@@ -252,3 +252,89 @@ Inclui tudo do Standard e ativa o mapeamento do **Treesitter** e configurações
  * **Treesit:** Highlight moderno. Use `M-x ultimate/install-grammars` para instalar linguagens.
  * **Eglot (LSP):** Autocomplete e diagnósticos. Use `M-x eglot` se não iniciar sozinho.
  * **Indentação:** Regras específicas ativadas automaticamente (ex: Go usa Tabs, Web usa 2 espaços).
+
+---
+
+## 📚 Referências
+
+### 🚀 Doom Emacs & Configuração
+ * [Doom Emacs Documentation](https://github.com/doomemacs/doomemacs/blob/master/docs/index.org) - Guia oficial de instalação e customização.
+ * [Doom Module Index](https://github.com/doomemacs/doomemacs/tree/master/modules) - Lista de todas as flags (como `+lsp`, `+tree-sitter`) e como configurá-las.
+ * [Nerd Fonts](https://www.nerdfonts.com/) - Fontes necessárias para os ícones do Doom.
+
+### 🧠 Core Emacs
+ * [GNU Emacs Manual](https://www.gnu.org/software/emacs/manual/) - Manual oficial completo.
+ * [Emacs Wiki](https://www.emacswiki.org/) - A maior base de conhecimento comunitária.
+ * [Mastering Emacs](https://www.masteringemacs.org/) - Artigos excelentes para entender como o Emacs funciona a fundo.
+
+### 🛠️ Tecnologias Usadas
+ * [Emacs Tree-sitter Starter Guide](https://www.masteringemacs.org/article/how-to-get-started-tree-sitter) - Como funciona o novo motor de syntax highlighting.
+ * [LSP Mode (Doom Default)](https://emacs-lsp.github.io/lsp-mode/) - Documentação do cliente LSP padrão do Doom.
+ * [EditorConfig for Emacs](https://github.com/editorconfig/editorconfig-emacs) - Plugin para manter consistência de estilo de código entre editores.
+
+---
+
+## Instalar as Dependências no Ubuntu/Debian
+ ```bash
+ sudo apt install --yes emacs
+ sudo apt install --yes libtree-sitter0
+ sudo apt install --yes libtree-sitter-dev
+ sudo apt install --yes build-essential
+ sudo apt install --yes repgrep
+ sudo apt install --yes ripgrep
+ sudo apt install --yes fd-find
+ sudo apt install --yes git
+ ```
+
+## Instalar as Dependências no Manjaro/Arch
+ ```bash
+ sudo pacman --needed --noconfirm -S emacs
+ sudo pacman --needed --noconfirm -S tree-sitter
+ sudo pacman --needed --noconfirm -S base-devel
+ sudo pacman --needed --noconfirm -S repgrep
+ sudo pacman --needed --noconfirm -S ripgrep
+ sudo pacman --needed --noconfirm -S fd
+ sudo pacman --needed --noconfirm -S git
+ ```
+
+## Instalação Rápida do Doom Emacs com Configuração Básica
+ ```bash
+ # Remove Lixo
+ rm -rf "$HOME/.emacs" 2> "/dev/null"
+ rm -rf "$HOME/.emacs.d" 2> "/dev/null"
+ rm -rf "$HOME/.config/emacs" 2> "/dev/null"
+ rm -rf "$HOME/.config/doom" 2> "/dev/null"
+
+ # Setup Doom Emacs
+ git clone --depth 1 "https://github.com/doomemacs/doomemacs" "$HOME/.config/emacs"
+ mkdir -p "$HOME/.config/doom/snippets"
+ ~/.config/emacs/bin/doom install --force
+ ~/.config/emacs/bin/doom sync
+
+ # Setup Nerd Icons
+ wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip" -O "NerdFontsSymbolsOnly.zip"
+ unzip -o "NerdFontsSymbolsOnly.zip" -d "$HOME/.local/share/fonts"
+ rm -f "$HOME/.local/share/fonts/10-nerd-font-symbols.conf"
+ rm -f "$HOME/.local/share/fonts/LICENSE"
+ rm -f "$HOME/.local/share/fonts/README.md"
+ rm "NerdFontsSymbolsOnly.zip"
+
+ # Setup init.el
+ sed -i 's/;;tree-sitter/tree-sitter/' "$HOME/.config/doom/init.el"
+ sed -i 's/;;(cc +lsp)/(cc +lsp +tree-sitter)/' "$HOME/.config/doom/init.el"
+ sed -i 's/;;(rust +lsp)/(rust +lsp +tree-sitter)/' "$HOME/.config/doom/init.el"
+ sed -i 's/;;python/(python +lsp +tree-sitter)/' "$HOME/.config/doom/init.el"
+ sed -i 's/;;javascript/(javascript +lsp +tree-sitter)/' "$HOME/.config/doom/init.el"
+ sed -i 's/;;typescript/(typescript +lsp +tree-sitter)/' "$HOME/.config/doom/init.el"
+ sed -i 's/;;toml/(toml +lsp +tree-sitter)/' "$HOME/.config/doom/init.el"
+ sed -i 's/;;sql/(sql +lsp +tree-sitter)/' "$HOME/.config/doom/init.el"
+ sed -i 's/sh[[:space:]]*;/(sh +tree-sitter) ;/' "$HOME/.config/doom/init.el"
+ ~/.config/emacs/bin/doom sync
+
+ # Setup config.el
+ cat << 'EOF' | tee -a "$HOME/.config/doom/config.el" > "/dev/null"
+ ;; Ativar Cursor Piscante
+ (blink-cursor-mode 1)
+ EOF
+ ~/.config/emacs/bin/doom sync
+ ```
