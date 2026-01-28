@@ -131,6 +131,7 @@
 ## Instalar as Dependências no Ubuntu/Debian
  ```bash
  sudo apt install --yes vim
+ sudo apt install --yes vim-nox
  sudo apt install --yes xsel
  sudo apt install --yes xclip
  sudo apt install --yes wl-clipboard
@@ -139,7 +140,6 @@
  sudo apt install --yes fd-find
  sudo apt install --yes git
  sudo ln -s "$(which fdfind)" "/usr/local/bin/fd" 2> "/dev/null"
- sudo apt install --yes vim-nox
  ```
 
 ## Instalar as Dependências no Manjaro/Arch
