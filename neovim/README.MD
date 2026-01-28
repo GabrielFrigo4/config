@@ -171,6 +171,15 @@
  rm -f "$HOME/.local/share/fonts/README.md"
  rm "NerdFontsSymbolsOnly.zip"
 
+ # Install JetBrains Mono
+ bash -c "$(curl -fsSL "https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh")"
+ wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip" -O "JetBrainsMono.zip"
+ unzip JetBrainsMono.zip -d "$HOME/.local/share/fonts"
+ rm -f "$HOME/.local/share/fonts/OFL.txt"
+ rm -f "$HOME/.local/share/fonts/README.md"
+ rm -f JetBrainsMono.zip
+ fc-cache -fv
+
  # Setup options.lua
  cat << 'EOF' | tee -a "$HOME/.config/nvim/lua/config/options.lua" > "/dev/null"
  -- Ativar Cursor Piscante

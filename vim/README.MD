@@ -109,10 +109,22 @@
 
 ---
 
-## 📚 Referências
+## 📚 Referências e Documentação
+
+### 🚀 SpaceVim (O Framework)
+ * **[SpaceVim Documentation](https://spacevim.org/documentation/)** - O manual oficial. Essencial para entender como as "Layers" funcionam (o equivalente aos Módulos do Doom).
+ * **[SpaceVim Layers](https://spacevim.org/layers/)** - Catálogo de plugins agrupados. Quer suporte a Python? Ative a layer `lang#python`.
+ * **[SpaceVim General Options](https://www.google.com/search?q=https://spacevim.org/documentation/%23general-options)** - Lista de opções para colocar no seu `init.toml`.
+
+### 🧠 Core Vim
  * [Vim Documentation](https://vimhelp.org/)
  * [Vim Tips Wiki](http://vim.wikia.com/wiki/Vim_Tips_Wiki)
  * [Vimcasts](http://vimcasts.org/)
+
+### ⚙️ Configuração (TOML & VimScript)
+ * **[TOML Guide](https://toml.io/en/)** - O SpaceVim usa TOML para a configuração principal (`init.toml`). É bom entender a sintaxe.
+ * **[Vim Script Cheat Sheet](https://devhints.io/vimscript)** - Embora o SpaceVim abstraia muito, para funções customizadas (`bootstrap_before`) você usará VimScript puro.
+ * **[Learn Vimscript the Hard Way](https://learnvimscriptthehardway.stevelosh.com/)** - Se quiser se aprofundar no que roda "por baixo do capô" do Vim clássico.
 
 ---
 
@@ -127,6 +139,7 @@
  sudo apt install --yes fd-find
  sudo apt install --yes git
  sudo ln -s "$(which fdfind)" "/usr/local/bin/fd" 2> "/dev/null"
+ sudo apt install --yes vim-nox
  ```
 
 ## Instalar as Dependências no Manjaro/Arch
@@ -141,14 +154,17 @@
  sudo pacman --needed --noconfirm -S git
  ```
 
-## Instalação Rápida do LazyVim com Configuração Básica
+## Instalação Rápida do SpaceVim com Configuração Básica
  ```bash
  # Remove Lixo
- rm -rf "$HOME/.config/nvim" 2> "/dev/null"
+ rm -rf "$HOME/.vim" 2> "/dev/null"
+ rm -rf "$HOME/.vimrc" 2> "/dev/null"
+ rm -rf "$HOME/.SpaceVim" 2> "/dev/null"
+ rm -rf "$HOME/.SpaceVim.d" 2> "/dev/null"
 
- # Setup LazyVim
- git clone "https://github.com/LazyVim/starter" "$HOME/.config/nvim"
- rm -rf "$HOME/.config/nvim/.git"
+ # Setup SpaceVim
+ git clone "https://github.com/SpaceVim/SpaceVim.git" "$HOME/.SpaceVim"
+ mkdir -p "$HOME/.SpaceVim.d/autoload"
 
  # Setup Nerd Icons
  wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip" -O "NerdFontsSymbolsOnly.zip"
@@ -158,20 +174,68 @@
  rm -f "$HOME/.local/share/fonts/README.md"
  rm "NerdFontsSymbolsOnly.zip"
 
- # Setup options.lua
- cat << 'EOF' | tee -a "$HOME/.config/nvim/lua/config/options.lua" > "/dev/null"
- -- Ativar Cursor Piscante
- local cursor_gui = vim.api.nvim_get_option_value("guicursor", {})
- local cursor_group = vim.api.nvim_create_augroup('ConfigCursor', { clear = true })
- vim.api.nvim_create_autocmd({ 'VimEnter', 'VimResume' }, {
- 	group = cursor_group,
- 	pattern = '*',
- 	command = 'set guicursor=' .. cursor_gui .. ',a:blinkwait500-blinkoff500-blinkon500-Cursor/lCursor'
- })
- vim.api.nvim_create_autocmd({ 'VimLeave', 'VimSuspend' }, {
- 	group = cursor_group,
- 	pattern = '*',
- 	command = 'set guicursor='
- })
+ # Install JetBrains Mono
+ bash -c "$(curl -fsSL "https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh")"
+ wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip" -O "JetBrainsMono.zip"
+ unzip -o JetBrainsMono.zip -d "$HOME/.local/share/fonts"
+ rm -f "$HOME/.local/share/fonts/OFL.txt"
+ rm -f "$HOME/.local/share/fonts/README.md"
+ rm -f JetBrainsMono.zip
+ fc-cache -fv
+
+ # Setup init.toml
+ cat << 'EOF' | tee "$HOME/.SpaceVim.d/init.toml" > "/dev/null"
+ # =============================================================================
+ # Opções Gerais
+ # =============================================================================
+ [options]
+    # Define a fonte (Importante para GUIs, mas ajuda na detecção de ícones)
+    guifont = "JetBrainsMonoNL Nerd Font Mono:h16"
+   
+    # Tema
+    colorscheme = "onedark"
+    colorscheme_bg = "dark"
+   
+    # Statusline e Ícones
+    enable_statusline_mode = true
+    statusline_separator = "arrow"
+    enable_tabline_filetype_icon = true
+    enable_bufferline = true
+   
+    # Aponta para a função de bootstrap (onde configuramos o cursor)
+    bootstrap_before = "myspacevim#before"
+
+ # =============================================================================
+ # Layers (Plugins)
+ # =============================================================================
+ [[layers]]
+    name = "autocomplete"
+    auto_completion_return_key_behavior = "complete"
+    auto_completion_tab_key_behavior = "smart"
+
+ [[layers]]
+    name = "shell"
+    default_position = "bottom"
+    default_height = 30
+
+ [[layers]]
+    name = "git"
+
+ [[layers]]
+    name = "lsp"
+ EOF
+
+ # Setup myspacevim.vim
+ cat << 'EOF' | tee "$HOME/.SpaceVim.d/autoload/myspacevim.vim" > "/dev/null"
+ function! myspacevim#before() abort
+    " Ativar Cursor Piscante (Força configurações de terminal)
+    let &t_SI = "\e[6 q"
+    let &t_SR = "\e[4 q"
+    let &t_EI = "\e[2 q"
+   
+    " Configura o comportamento do cursor para Block/Line
+    set guicursor+=n-v-c:blinkon1
+    set guicursor+=i-ci:ver25-blinkon1
+ endfunction
  EOF
  ```

@@ -318,6 +318,16 @@ Inclui tudo do Standard e ativa o mapeamento do **Treesitter** e configurações
  rm -f "$HOME/.local/share/fonts/LICENSE"
  rm -f "$HOME/.local/share/fonts/README.md"
  rm "NerdFontsSymbolsOnly.zip"
+ fc-cache -fv
+
+ # Install JetBrains Mono
+ bash -c "$(curl -fsSL "https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh")"
+ wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip" -O "JetBrainsMono.zip"
+ unzip JetBrainsMono.zip -d "$HOME/.local/share/fonts"
+ rm -f "$HOME/.local/share/fonts/OFL.txt"
+ rm -f "$HOME/.local/share/fonts/README.md"
+ rm -f JetBrainsMono.zip
+ fc-cache -fv
 
  # Setup init.el
  sed -i 's/;;tree-sitter/tree-sitter/' "$HOME/.config/doom/init.el"
@@ -333,8 +343,11 @@ Inclui tudo do Standard e ativa o mapeamento do **Treesitter** e configurações
 
  # Setup config.el
  cat << 'EOF' | tee -a "$HOME/.config/doom/config.el" > "/dev/null"
+ ;; Configuração de Fonte (JetBrains Mono)
+ (setq doom-font (font-spec :family "JetBrainsMonoNL Nerd Font Mono" :size 16 :weight 'medium)
+       doom-variable-pitch-font (font-spec :family "JetBrainsMonoNL Nerd Font Mono" :size 16))
  ;; Ativar Cursor Piscante
- (blink-cursor-mode 1)
+ (blink-cursor-mode t)
  EOF
  ~/.config/emacs/bin/doom sync
  ```
