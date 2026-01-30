@@ -309,6 +309,12 @@ Inclui tudo do Standard e ativa o mapeamento do **Treesitter** e configurações
  git clone --depth 1 "https://github.com/doomemacs/doomemacs" "$HOME/.config/emacs"
  mkdir -p "$HOME/.config/doom/snippets"
  ~/.config/emacs/bin/doom install --force
+
+ # Setup Packages
+ cat << 'EOF' | tee -a "$HOME/.config/doom/packages.el" > "/dev/null"
+ (package! mermaid-mode)
+ (package! ob-mermaid)
+ EOF
  ~/.config/emacs/bin/doom sync
 
  # Setup Nerd Icons
@@ -348,6 +354,19 @@ Inclui tudo do Standard e ativa o mapeamento do **Treesitter** e configurações
        doom-variable-pitch-font (font-spec :family "JetBrainsMonoNL Nerd Font Mono" :size 16))
  ;; Ativar Cursor Piscante
  (blink-cursor-mode t)
+
+ ;; Configuração Mermaid
+ (use-package! mermaid-mode
+   :mode "\\.mermaid\\'"
+   :mode "\\.mmd\\'"
+   :config
+   (setq mermaid-mmdc-location "mmdc")
+   (setq mermaid-output-format "png"))
+
+ (use-package! ob-mermaid
+   :after org
+   :config
+   (setq ob-mermaid-cli-path "mmdc"))
  EOF
  ~/.config/emacs/bin/doom sync
  ```
