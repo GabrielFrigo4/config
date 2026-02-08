@@ -181,7 +181,7 @@
  rm -f "$HOME/.local/share/fonts/OFL.txt"
  rm -f "$HOME/.local/share/fonts/README.md"
  rm -f JetBrainsMono.zip
- fc-cache -fv
+ fc-cache -f
 
  # Setup init.toml
  cat << 'EOF' | tee "$HOME/.SpaceVim.d/init.toml" > "/dev/null"

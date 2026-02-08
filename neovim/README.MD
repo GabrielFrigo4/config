@@ -178,7 +178,7 @@
  rm -f "$HOME/.local/share/fonts/OFL.txt"
  rm -f "$HOME/.local/share/fonts/README.md"
  rm -f JetBrainsMono.zip
- fc-cache -fv
+ fc-cache -f
 
  # Setup options.lua
  cat << 'EOF' | tee -a "$HOME/.config/nvim/lua/config/options.lua" > "/dev/null"

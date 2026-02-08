@@ -324,7 +324,7 @@ Inclui tudo do Standard e ativa o mapeamento do **Treesitter** e configurações
  rm -f "$HOME/.local/share/fonts/LICENSE"
  rm -f "$HOME/.local/share/fonts/README.md"
  rm "NerdFontsSymbolsOnly.zip"
- fc-cache -fv
+ fc-cache -f
 
  # Install JetBrains Mono
  bash -c "$(curl -fsSL "https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh")"
@@ -333,7 +333,7 @@ Inclui tudo do Standard e ativa o mapeamento do **Treesitter** e configurações
  rm -f "$HOME/.local/share/fonts/OFL.txt"
  rm -f "$HOME/.local/share/fonts/README.md"
  rm -f JetBrainsMono.zip
- fc-cache -fv
+ fc-cache -f
 
  # Setup init.el
  sed -i 's/;;tree-sitter/tree-sitter/' "$HOME/.config/doom/init.el"
