@@ -369,4 +369,7 @@ Inclui tudo do Standard e ativa o mapeamento do **Treesitter** e configurações
    (setq ob-mermaid-cli-path "mmdc"))
  EOF
  ~/.config/emacs/bin/doom sync
+
+ # Update Doom Emacs
+ ~/.config/emacs/bin/doom upgrade
  ```

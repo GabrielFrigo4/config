@@ -228,10 +228,10 @@
  # Setup myspacevim.vim
  cat << 'EOF' | tee "$HOME/.SpaceVim.d/autoload/myspacevim.vim" > "/dev/null"
  function! myspacevim#before() abort
-    " Ativar Cursor Piscante (Força configurações de terminal)
-    let &t_SI = "\e[6 q"
-    let &t_SR = "\e[4 q"
-    let &t_EI = "\e[2 q"
+    " Ativar Cursor Piscante
+    let &t_SI = "\e[5 q"
+    let &t_SR = "\e[3 q"
+    let &t_EI = "\e[1 q"
    
     " Configura o comportamento do cursor para Block/Line
     set guicursor+=n-v-c:blinkon1
